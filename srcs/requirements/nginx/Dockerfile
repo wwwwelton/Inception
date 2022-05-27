@@ -1,7 +1,15 @@
 FROM	debian:buster
 
-RUN		apt-get install nginx -y
+RUN		apt update
 
-EXPOSE	443
+RUN		apt install nginx -y
 
-CMD		[systemctl], [start], [nginx]
+RUN		rm -rf /etc/nginx/nginx.conf /etc/nginx/conf.d/default.conf
+
+COPY	conf /etc/nginx
+
+EXPOSE	80
+
+STOPSIGNAL	SIGQUIT
+
+CMD		["nginx", "-g", "daemon off;"]
