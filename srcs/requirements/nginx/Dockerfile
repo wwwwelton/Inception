@@ -8,7 +8,7 @@ RUN		rm -rf /etc/nginx/nginx.conf /etc/nginx/conf.d/default.conf
 
 COPY	conf /etc/nginx
 
-EXPOSE	80
+EXPOSE	443
 
 STOPSIGNAL	SIGQUIT
 
