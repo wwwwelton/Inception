@@ -12,9 +12,9 @@ RUN		openssl req -x509 -nodes -days 365 -subj \
 
 RUN		apt install nginx -y
 
-RUN		rm -rf /etc/nginx/nginx.conf /etc/nginx/conf.d/default.conf
+COPY	conf /etc/nginx/sites-available
 
-COPY	conf /etc/nginx
+RUN		ln -s /etc/nginx/sites-available/wleite.42.fr /etc/nginx/sites-enabled/
 
 EXPOSE	443
 
