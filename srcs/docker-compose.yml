@@ -2,17 +2,27 @@ version: "3"
 services:
   nginx:
     build:
-     context: ./requirements/nginx/
+      context: ./requirements/nginx/
     ports:
       - "443:443"
+    networks:
+      - network-nginx
   mariadb:
     build:
-     context: ./requirements/mariadb/
-     args:
-       - MYSQL_DATABASE
-       - MYSQL_ROOT
-       - MYSQL_ROOT_PASSWORD
-       - MYSQL_USER
-       - MYSQL_PASSWORD
+      context: ./requirements/mariadb/
+      args:
+        - MYSQL_DATABASE
+        - MYSQL_ROOT
+        - MYSQL_ROOT_PASSWORD
+        - MYSQL_USER
+        - MYSQL_PASSWORD
     ports:
       - "3306:3306"
+    networks:
+      - network-mariadb
+
+networks:
+  network-nginx:
+    name: network-nginx
+  network-mariadb:
+    name: network-mariadb
