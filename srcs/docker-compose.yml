@@ -1,7 +1,8 @@
 version: "3"
 services:
   nginx:
-    build: ./requirements/nginx/
+    build:
+     context: ./requirements/nginx/
     ports:
       - "443:443"
   mariadb:
