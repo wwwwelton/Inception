@@ -1,5 +1,6 @@
 version: "3"
 services:
+
   nginx:
     build:
       context: ./requirements/nginx/
@@ -8,6 +9,9 @@ services:
     networks:
       - network-nginx
     restart: always
+    volumes:
+      - volume-wordpress:/var/www/wordpress
+
   mariadb:
     build:
       context: ./requirements/mariadb/
@@ -22,6 +26,7 @@ services:
     networks:
       - network-mariadb
     restart: always
+
   wordpress:
     build:
       context: ./requirements/wordpress/
@@ -29,9 +34,14 @@ services:
       - "9000:9000"
     networks:
       - network-wordpress
+      - network-mariadb
+      - network-nginx
     restart: always
+    volumes:
+      - volume-wordpress:/var/www/wordpress
 
 networks:
+
   network-nginx:
     driver: bridge
     name: network-nginx
@@ -41,3 +51,13 @@ networks:
   network-wordpress:
     driver: bridge
     name: network-wordpress
+
+volumes:
+
+  volume-wordpress:
+    driver: local
+    driver_opts:
+      device: ${VOLUME_PATH}/wordpress
+      o: bind
+      type: none
+    name: volume-wordpress
