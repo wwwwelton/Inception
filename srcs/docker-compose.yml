@@ -7,6 +7,7 @@ services:
       - "443:443"
     networks:
       - network-nginx
+    restart: always
   mariadb:
     build:
       context: ./requirements/mariadb/
@@ -21,6 +22,14 @@ services:
     networks:
       - network-mariadb
     restart: always
+  wordpress:
+    build:
+      context: ./requirements/wordpress/
+    ports:
+      - "9000:9000"
+    networks:
+      - network-wordpress
+    restart: always
 
 networks:
   network-nginx:
@@ -29,3 +38,6 @@ networks:
   network-mariadb:
     driver: bridge
     name: network-mariadb
+  network-wordpress:
+    driver: bridge
+    name: network-wordpress
