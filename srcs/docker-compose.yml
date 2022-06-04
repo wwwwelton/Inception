@@ -41,6 +41,8 @@ services:
     restart: always
     volumes:
       - volume-wordpress:/var/www/wordpress
+    depends_on:
+      - mariadb
 
 networks:
 
