@@ -1,34 +1,36 @@
-FROM	debian:buster
+FROM debian:buster
 
-RUN		apt update
+RUN apt update
 
-RUN		apt install curl less mariadb-client redis php7.3 php7.3-phar php7.3-json php7.3-curl php7.3-fpm php7.3-mysqli php7.3-iconv zip unzip wget -y
+RUN apt install curl less mariadb-client redis php7.3 \
+	php7.3-phar php7.3-json php7.3-curl php7.3-fpm php7.3-mysqli \
+	php7.3-iconv zip unzip wget -y
 
-RUN		mkdir -p /var/run/php && chmod 777 /var/run/php
+RUN mkdir -p /var/run/php && chmod 777 /var/run/php
 
-RUN		echo "\nlisten = 0.0.0.0:9000\n" >> /etc/php/7.3/fpm/pool.d/www.conf
+RUN echo "\nlisten = 0.0.0.0:9000\n" >>/etc/php/7.3/fpm/pool.d/www.conf
 
-WORKDIR	/tmp
+WORKDIR /tmp
 
-RUN		curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 
-RUN		chmod a+x wp-cli.phar && mv wp-cli.phar /usr/local/bin/wp && wp cli update
+RUN chmod a+x wp-cli.phar && mv wp-cli.phar /usr/local/bin/wp && wp cli update
 
-RUN		mkdir -p /var/www/wordpress
+RUN mkdir -p /var/www/wordpress
 
-RUN		wp core download --path=/var/www/wordpress --allow-root
+RUN wp core download --path=/var/www/wordpress --allow-root
 
-COPY	conf /var/www/wordpress
+COPY conf /var/www/wordpress
 
-RUN		echo "env[MYSQL_HOST] = \$MYSQL_HOST" >> /etc/php/7.3/fpm/pool.d/www.conf
-RUN		echo "env[MYSQL_DATABASE] = \$MYSQL_DATABASE" >> /etc/php/7.3/fpm/pool.d/www.conf
-RUN		echo "env[MYSQL_USER] = \$MYSQL_USER" >> /etc/php/7.3/fpm/pool.d/www.conf
-RUN		echo "env[MYSQL_PASSWORD] = \$MYSQL_PASSWORD" >> /etc/php/7.3/fpm/pool.d/www.conf
+RUN echo "env[MYSQL_HOST] = \$MYSQL_HOST" >>/etc/php/7.3/fpm/pool.d/www.conf
+RUN echo "env[MYSQL_DATABASE] = \$MYSQL_DATABASE" >>/etc/php/7.3/fpm/pool.d/www.conf
+RUN echo "env[MYSQL_USER] = \$MYSQL_USER" >>/etc/php/7.3/fpm/pool.d/www.conf
+RUN echo "env[MYSQL_PASSWORD] = \$MYSQL_PASSWORD" >>/etc/php/7.3/fpm/pool.d/www.conf
 
-COPY	tools /usr/local/bin
+COPY tools /usr/local/bin
 
-RUN		chmod a+x /usr/local/bin/script.sh
+RUN chmod a+x /usr/local/bin/script.sh
 
-EXPOSE	9000
+EXPOSE 9000
 
-ENTRYPOINT		["script.sh"]
+ENTRYPOINT ["script.sh"]
