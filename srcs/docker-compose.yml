@@ -28,6 +28,8 @@ services:
     networks:
       - network-mariadb
     restart: always
+    volumes:
+      - volume-mariadb:/var/lib/mysql
 
   wordpress:
     build:
@@ -71,6 +73,14 @@ networks:
     name: network-wordpress
 
 volumes:
+
+  volume-mariadb:
+    driver: local
+    driver_opts:
+      device: ${VOLUME_PATH}/mariadb
+      o: bind
+      type: none
+    name: volume-mariadb
 
   volume-wordpress:
     driver: local
