@@ -20,6 +20,4 @@ RUN ln -s /etc/nginx/sites-available/wleite.42.fr /etc/nginx/sites-enabled/
 
 EXPOSE 443
 
-STOPSIGNAL SIGQUIT
-
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
