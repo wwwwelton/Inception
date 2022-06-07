@@ -9,7 +9,7 @@ services:
     ports:
       - "443:443"
     networks:
-      - network-nginx
+      - network-docker
     restart: always
     volumes:
       - volume-wordpress:/var/www/wordpress
@@ -28,7 +28,7 @@ services:
     ports:
       - "3306:3306"
     networks:
-      - network-mariadb
+      - network-docker
     restart: always
     volumes:
       - volume-mariadb:/var/lib/mysql
@@ -53,9 +53,7 @@ services:
     ports:
       - "9000:9000"
     networks:
-      - network-wordpress
-      - network-mariadb
-      - network-nginx
+      - network-docker
     restart: always
     volumes:
       - volume-wordpress:/var/www/wordpress
@@ -64,15 +62,9 @@ services:
 
 networks:
 
-  network-nginx:
+  network-docker:
     driver: bridge
-    name: network-nginx
-  network-mariadb:
-    driver: bridge
-    name: network-mariadb
-  network-wordpress:
-    driver: bridge
-    name: network-wordpress
+    name: network-docker
 
 volumes:
 
