@@ -1,23 +1,25 @@
-FROM	debian:buster
+FROM debian:buster
 
-RUN		apt update
+ARG DOMAIN_NAME
 
-RUN		apt install openssl -y
+RUN apt update
 
-RUN		openssl req -x509 -nodes -days 365 -subj \
-		"/C=BR/ST=PR/O=42/CN=localhost" -addext \
-		"subjectAltName=DNS:localhost" -newkey rsa:2048 \
-		-keyout /etc/ssl/private/nginx-selfsigned.key -out \
-		/etc/ssl/certs/nginx-selfsigned.crt
+RUN apt install openssl -y
 
-RUN		apt install nginx -y
+RUN openssl req -x509 -nodes -days 365 -subj \
+	"/C=BR/ST=PR/O=42/CN=$DOMAIN_NAME" -addext \
+	"subjectAltName=DNS:$DOMAIN_NAME" -newkey rsa:2048 \
+	-keyout /etc/ssl/private/nginx-selfsigned.key -out \
+	/etc/ssl/certs/nginx-selfsigned.crt
 
-COPY	conf /etc/nginx/sites-available
+RUN apt install nginx -y
 
-RUN		ln -s /etc/nginx/sites-available/wleite.42.fr /etc/nginx/sites-enabled/
+COPY conf /etc/nginx/sites-available
 
-EXPOSE	443
+RUN ln -s /etc/nginx/sites-available/wleite.42.fr /etc/nginx/sites-enabled/
 
-STOPSIGNAL	SIGQUIT
+EXPOSE 443
 
-ENTRYPOINT		["nginx", "-g", "daemon off;"]
+STOPSIGNAL SIGQUIT
+
+ENTRYPOINT ["nginx", "-g", "daemon off;"]
