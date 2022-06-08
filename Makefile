@@ -15,7 +15,7 @@ down:
 
 clean:
 	sudo docker-compose -f srcs/docker-compose.yml down -v --rmi all --remove-orphans
-	sudo rm -rf /home/wleite/data
+	sudo rm -rf /home/wleite
 
 fclean: clean
 	sudo docker system prune --volumes --all --force
