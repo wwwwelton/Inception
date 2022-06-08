@@ -27,8 +27,6 @@ services:
         - MYSQL_ROOT_PASSWORD
         - MYSQL_USER
         - MYSQL_PASSWORD
-    ports:
-      - "3306:3306"
     networks:
       - network-docker
     restart: always
@@ -53,8 +51,6 @@ services:
       - WP_USER
       - WP_USER_PWD
       - WP_USER_EMAIL
-    ports:
-      - "9000:9000"
     networks:
       - network-docker
     restart: always
