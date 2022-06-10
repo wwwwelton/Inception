@@ -13,6 +13,9 @@ up:
 down:
 	sudo docker-compose -f srcs/docker-compose.yml down
 
+rebuild:
+	sudo docker-compose -f srcs/docker-compose.yml build --no-cache
+
 clean:
 	sudo docker-compose -f srcs/docker-compose.yml down -v --rmi all --remove-orphans
 	sudo -n sed '/127.0.0.1 wleite.42.fr/d' /etc/hosts -n

@@ -15,6 +15,13 @@ if ! wp core is-installed --allow-root --path=/var/www/wordpress; then
 	wp plugin update --all --allow-root --path=/var/www/wordpress
 
 	wp redis enable --all --allow-root --path=/var/www/wordpress
+
+	chown -R www-data:www-data /var/www/wordpress
+
+else
+
+	yes | cp -r /var/lib/wordpress/* /var/www/wordpress
+
 fi
 
 php-fpm7.3 -F

@@ -22,6 +22,8 @@ RUN wp core download --path=/var/www/wordpress --allow-root
 
 COPY conf /var/www/wordpress
 
+COPY conf /var/lib/wordpress
+
 RUN echo "env[MYSQL_HOST] = \$MYSQL_HOST" >>/etc/php/7.3/fpm/pool.d/www.conf
 RUN echo "env[MYSQL_DATABASE] = \$MYSQL_DATABASE" >>/etc/php/7.3/fpm/pool.d/www.conf
 RUN echo "env[MYSQL_USER] = \$MYSQL_USER" >>/etc/php/7.3/fpm/pool.d/www.conf
