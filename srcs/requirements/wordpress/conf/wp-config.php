@@ -18,7 +18,18 @@
  * @package WordPress
  */
 
-// ** Database settings - You can get this info from your web host ** //
+/** Redis hostname */
+define( 'WP_REDIS_HOST', getenv('REDIS_HOST') );
+
+/** Redis port */
+define( 'WP_REDIS_PORT', getenv('REDIS_PORT') );
+
+/** True if do caching */
+define( 'WP_CACHE', true );
+
+/** Unique key for every site */
+define('WP_CACHE_KEY_SALT', getenv('DOMAIN_NAME') );
+
 /** The name of the database for WordPress */
 define( 'DB_NAME', getenv('MYSQL_DATABASE') );
 

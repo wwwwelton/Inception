@@ -1,6 +1,16 @@
 version: "3"
 services:
 
+  redis:
+    image: redis
+    build:
+      context: ./bonus/redis/
+    networks:
+      - network-docker
+    restart: always
+    depends_on:
+      - mariadb
+
   nginx:
     image: nginx
     build:
@@ -38,6 +48,9 @@ services:
     build:
       context: ./requirements/wordpress/
     environment:
+      - DOMAIN_NAME
+      - REDIS_HOST
+      - REDIS_PORT
       - MYSQL_HOST
       - MYSQL_DATABASE
       - MYSQL_USER
