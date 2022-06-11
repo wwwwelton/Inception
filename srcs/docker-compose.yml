@@ -10,7 +10,27 @@ services:
       - network-docker
     restart: always
     depends_on:
-      - mariadb
+      - wordpress
+
+  ftp:
+    image: ftp:1.0
+    container_name: ftp
+    build:
+      context: ./bonus/vsftpd/
+      args:
+        - FTP_PATH
+        - FTP_USER
+        - FTP_PWD
+    environment:
+      - FTP_PATH
+      - FTP_USER
+    ports:
+      - "21:21"
+    restart: always
+    volumes:
+      - volume-wordpress:/var/www/wordpress
+    depends_on:
+      - wordpress
 
   nginx:
     image: nginx:1.0
