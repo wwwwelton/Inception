@@ -32,6 +32,17 @@ services:
     depends_on:
       - wordpress
 
+  site:
+    image: site:1.0
+    container_name: site
+    build:
+      context: ./bonus/site/
+    networks:
+      - network-docker
+    restart: always
+    depends_on:
+      - nginx
+
   adminer:
     image: adminer:1.0
     container_name: adminer
