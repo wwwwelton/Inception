@@ -8,6 +8,7 @@ up:
 
 	sudo mkdir -p /home/wleite/data/mariadb && sudo chmod 777 /home/wleite/data/mariadb
 	sudo mkdir -p /home/wleite/data/wordpress && sudo chmod 777 /home/wleite/data/wordpress
+	sudo mkdir -p /home/wleite/data/adminer && sudo chmod 777 /home/wleite/data/adminer
 	sudo docker-compose -f srcs/docker-compose.yml up -d
 
 down:
