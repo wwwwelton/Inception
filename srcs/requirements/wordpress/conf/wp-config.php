@@ -18,6 +18,10 @@
  * @package WordPress
  */
 
+/** Fix wordpress css ngrox */
+define( "WP_HOME", "https://" .$_SERVER["HTTP_HOST"]. "/" );
+define( "WP_SITEURL", "https://" .$_SERVER["HTTP_HOST"]. "/" );
+
 /** Redis hostname */
 define( 'WP_REDIS_HOST', getenv('REDIS_HOST') );
 

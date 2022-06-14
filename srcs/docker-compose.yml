@@ -54,6 +54,17 @@ services:
     depends_on:
       - mariadb
 
+  ngrok:
+    image: ngrok:1.0
+    container_name: ngrok
+    build:
+      context: ./bonus/ngrok/
+      args:
+        - AUTH_TOKEN
+    networks:
+      - network-docker
+    restart: always
+
   nginx:
     image: nginx:1.0
     container_name: nginx
