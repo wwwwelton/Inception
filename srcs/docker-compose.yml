@@ -40,8 +40,6 @@ services:
     networks:
       - network-docker
     restart: always
-    depends_on:
-      - nginx
 
   adminer:
     image: adminer:1.0
