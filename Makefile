@@ -24,8 +24,6 @@ clean:
 
 fclean: clean
 	sudo docker system prune --volumes --all --force
-	sudo docker network prune --force
-	sudo docker volume prune --force
 
 re: fclean all
 
