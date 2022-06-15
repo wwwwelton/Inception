@@ -61,6 +61,8 @@ services:
       context: ./bonus/ngrok/
       args:
         - AUTH_TOKEN
+    ports:
+      - "4040:4040"
     networks:
       - network-docker
     restart: always

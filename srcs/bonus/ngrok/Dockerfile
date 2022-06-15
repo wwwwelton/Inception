@@ -14,4 +14,8 @@ RUN tar xvzf ngrok-v3-stable-linux-amd64.tgz -C /usr/local/bin
 
 RUN ngrok config add-authtoken $AUTH_TOKEN
 
+RUN echo "web_addr: 0.0.0.0:4040" >> /root/.config/ngrok/ngrok.yml
+
+EXPOSE 4040
+
 ENTRYPOINT ["ngrok", "http", "nginx:443"]
