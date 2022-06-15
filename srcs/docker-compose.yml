@@ -26,6 +26,7 @@ services:
       - FTP_USER
     ports:
       - "21:21"
+      - "10090-10100:10090-10100"
     restart: always
     volumes:
       - volume-wordpress:/var/www/wordpress

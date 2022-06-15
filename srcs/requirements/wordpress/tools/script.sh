@@ -18,6 +18,8 @@ if ! wp core is-installed --allow-root --path=/var/www/wordpress; then
 
 	chown -R www-data:www-data /var/www/wordpress
 
+	chmod -R 774 /var/www/wordpress
+
 else
 
 	yes | cp -r /var/lib/wordpress/* /var/www/wordpress
